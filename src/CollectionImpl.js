@@ -113,6 +113,15 @@ mixin(Collection, {
       // Keyed collections produce an array of tuples.
       array[i++] = useTuples ? [k, v] : v;
     });
+    if (
+      typeof array[0] === 'number' &&
+      typeof array[array.length - 1] === 'number'
+    ) {
+      array.unshift(0, 0);
+      const empty = [];
+      Array.prototype.splice.apply(empty, array);
+      return empty;
+    }
     return array;
   },
 
